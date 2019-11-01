@@ -3,7 +3,6 @@ package com.example.basicandroidgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,13 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
+public class ActivityPlayGame extends AppCompatActivity implements View.OnClickListener {
 
     Button btnStart, btnStop, btn1, btn2, btn3, btn4;
-    TextView txtScore, txtHighScore, txtTime;
+    TextView lblScore, lblHighScore, lblTime;
 
     int score = 0, highScore = 0;
-    int num = -1, time = 60;
+    int num = -1, time = MyVariables.numberChances;
 
     int color1 = Color.GRAY;
     int color2 = Color.GRAY;
@@ -26,10 +25,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     int color4 = Color.GRAY;
 
     boolean isBackgroundThread;
+    boolean isModeEasy;
 
     Thread thread;
-
-    Intent intent;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -37,7 +35,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout2);
+        setContentView(R.layout.layout_playgame);
 
         btnStart = findViewById(R.id.btnStart);
         btnStop = findViewById(R.id.btnStop);
@@ -45,9 +43,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         btn2 = findViewById(R.id.btn2);
         btn3 = findViewById(R.id.btn3);
         btn4 = findViewById(R.id.btn4);
-        txtScore = findViewById(R.id.txtScore);
-        txtHighScore = findViewById(R.id.txtHighScore);
-        txtTime = findViewById(R.id.txtTime);
+        lblScore = findViewById(R.id.lblScore);
+        lblHighScore = findViewById(R.id.lblHighScore);
+        lblTime = findViewById(R.id.lblTime);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -57,8 +55,11 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         btnStart.setOnClickListener(this);
 
         sp = getSharedPreferences(MyVariables.cacheFile, Context.MODE_PRIVATE);
-        highScore = sp.getInt(MyVariables.highScoreKey, MyVariables.highScoreKeyDefault);
-        txtHighScore.setText(Integer.toString(highScore));
+
+        highScore = sp.getInt(MyVariables.keyHighScore, MyVariables.keyHighScoreDefault);
+        lblHighScore.setText(Integer.toString(highScore));
+
+        isModeEasy = sp.getBoolean(MyVariables.keyGameMode, MyVariables.keyGameModeDefault);
 
     }
 
@@ -100,9 +101,17 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     private void backgroundRefresh() {
-        for (int i = 60; i > 0; i--) {
+        for (int i = MyVariables.numberChances; i > 0; i--) {
             if (!isBackgroundThread) break;
-            num = MyVariables.randomNum(4);
+
+            int nextNum;
+            do {
+                nextNum = MyVariables.randomNum(4);
+            }
+            while (nextNum == num);
+
+            num = nextNum;
+
             time = i;
             changeColor(num);
         }
@@ -112,8 +121,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private void stopGame() {
         saveHighScore();
 
-        intent = new Intent(Main2Activity.this, MainActivity.class);
-        startActivity(intent);
+        startActivity(MyVariables.Arsh(ActivityPlayGame.this, ActivityGameResult.class));
     }
 
     private void changeColor(int num2) {
@@ -158,11 +166,15 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     btn2.setBackgroundColor(color2);
                     btn3.setBackgroundColor(color3);
                     btn4.setBackgroundColor(color4);
-                    txtTime.setText(time + " Seconds");
+                    lblTime.setText(time + " Chances");
                 }
             });
 
-            Thread.sleep(1000);
+            if (isModeEasy) {
+                Thread.sleep(800);
+            } else {
+                Thread.sleep(400);
+            }
         } catch (Exception e) {
         }
     }
@@ -199,7 +211,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateScore() {
-        txtScore.setText(Integer.toString(score));
+        lblScore.setText(Integer.toString(score));
     }
 
     private void saveHighScore() {
@@ -211,7 +223,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }
 
         editor = sp.edit();
-        editor.putInt(MyVariables.highScoreKey, highScore);
+        editor.putInt(MyVariables.keyHighScore, highScore);
         editor.apply();
     }
 

@@ -16,17 +16,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="Time Left : "
+            android:text="Chances Left : "
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#000000"/>
 
         <TextView
-            android:id="@+id/txtTime"
+            android:id="@+id/lblTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="60 Seconds"
+            android:text="60 Chances"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#000000"/>
 
@@ -78,7 +78,7 @@
             android:textColor="#000000"/>
 
         <TextView
-            android:id="@+id/txtHighScore"
+            android:id="@+id/lblHighScore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -106,7 +106,7 @@
             android:textColor="#000000"/>
 
         <TextView
-            android:id="@+id/txtScore"
+            android:id="@+id/lblScore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
