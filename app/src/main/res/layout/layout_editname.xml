@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Information"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            android:paddingLeft="10dp"
+            android:layout_weight="4"
+            android:textColor="#000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        <EditText
+            android:id="@+id/txtInfoName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:background="#FFFFFF"
+            android:hint="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#3c4049" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+
+        <Button
+            android:id="@+id/btnUpdateName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPDATE"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="#000000"
+            android:layout_margin="20dp"
+            android:background="#AFF8D1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            />
+        <Button
+            android:id="@+id/btnCancelUpdateName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:layout_margin="20dp"
+            android:background="#FA8585"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

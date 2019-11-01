@@ -11,11 +11,17 @@ public class MyVariables {
     public static final String keyHighScore = "keyHighScore";
     public static final int keyHighScoreDefault = 0;
 
+    public static final String keyCurrentScore = "keyCurrentScore";
+    public static final int keyCurrentScoreDefault = 0;
+
     public static final String keyGameMode = "keyHighScore";
     public static final boolean keyGameModeDefault = true;
 
     public static final String keyOverallHighScore = "keyHighScore";
     public static final int keyOverallHighScoreDefault = 0;
+
+    public static final String keyGameIntMode = "keyHighScore";
+    public static final int keyGameIntModeDefault = 1;
 
     public static final String keyRegisterName = "keyRegisterName";
     public static final String keyRegisterNameDefault = "";

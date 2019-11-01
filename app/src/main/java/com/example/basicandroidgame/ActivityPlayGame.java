@@ -17,7 +17,7 @@ public class ActivityPlayGame extends AppCompatActivity implements View.OnClickL
     TextView lblScore, lblHighScore, lblTime;
 
     int score = 0, highScore = 0;
-    int num = -1, time = MyVariables.numberChances;
+    int num = -1, time;
 
     int color1 = Color.GRAY;
     int color2 = Color.GRAY;
@@ -59,7 +59,9 @@ public class ActivityPlayGame extends AppCompatActivity implements View.OnClickL
         highScore = sp.getInt(MyVariables.keyHighScore, MyVariables.keyHighScoreDefault);
         lblHighScore.setText(Integer.toString(highScore));
 
-        isModeEasy = sp.getBoolean(MyVariables.keyGameMode, MyVariables.keyGameModeDefault);
+        isModeEasy = sp.getInt(MyVariables.keyGameIntMode, MyVariables.keyGameIntModeDefault) == 1 ? true : false;
+
+        time = MyVariables.numberChances;
 
     }
 
@@ -218,12 +220,14 @@ public class ActivityPlayGame extends AppCompatActivity implements View.OnClickL
 
         isBackgroundThread = false;
 
+        editor = sp.edit();
+
         if (score > highScore) {
             highScore = score;
+            editor.putInt(MyVariables.keyHighScore, highScore);
         }
 
-        editor = sp.edit();
-        editor.putInt(MyVariables.keyHighScore, highScore);
+        editor.putInt(MyVariables.keyCurrentScore, score);
         editor.apply();
     }
 

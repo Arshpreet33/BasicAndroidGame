@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class ActivityStartGame extends AppCompatActivity implements View.OnClickListener {
 
     Button btnStart;
     Switch switchMode;
+    TextView lblViewProfile;
 
     boolean isModeEasy = true;
 
@@ -27,8 +29,10 @@ public class ActivityStartGame extends AppCompatActivity implements View.OnClick
 
         btnStart = findViewById(R.id.btnStartGame);
         switchMode = findViewById(R.id.switchMode);
+        lblViewProfile = findViewById(R.id.lblViewProfile);
 
         btnStart.setOnClickListener(this);
+        lblViewProfile.setOnClickListener(this);
 
         sp = getSharedPreferences(MyVariables.cacheFile, Context.MODE_PRIVATE);
 
@@ -44,6 +48,9 @@ public class ActivityStartGame extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.btnStartGame:
                 btnStartGameClick();
+                break;
+            case R.id.lblViewProfile:
+                lblViewProfileClick();
                 break;
             default:
                 break;
@@ -64,9 +71,14 @@ public class ActivityStartGame extends AppCompatActivity implements View.OnClick
 
         editor = sp.edit();
 
-        editor.putBoolean(MyVariables.keyGameMode, isModeEasy);
+        editor.putInt(MyVariables.keyGameIntMode, isModeEasy ? 1 : 0);
         editor.apply();
 
         startActivity(MyVariables.Arsh(ActivityStartGame.this, ActivityPlayGame.class));
+    }
+
+    private void lblViewProfileClick() {
+
+        startActivity(MyVariables.Arsh(ActivityStartGame.this, ActivityInfo.class));
     }
 }
